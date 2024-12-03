@@ -6,112 +6,778 @@
     <title>Billiards Pals</title>
     <style>
       body {
-        background: #0a4d35;
-        color: #fff;
         font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #1a1a1d, #4e9a06);
+        color: #fff;
+      }
+
+      header {
+        background-color: #4e9a06;
+        padding: 1rem;
         text-align: center;
-        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
-      .container {
-        max-width: 400px;
-        margin: 0 auto;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 30px;
-        border-radius: 10px;
+
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        color: #fff;
       }
-      h1 {
-        font-size: 2.5em;
-        margin-bottom: 30px;
+
+      main {
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
       }
-      input {
+
+      .links-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
         width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: none;
-        border-radius: 5px;
       }
-      button {
-        background: #ffd700;
-        color: #000;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 10px;
+
+      .link-card {
+        background: #333;
+        border: 2px solid #4e9a06;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s, box-shadow 0.3s;
+        width: 100%;
+        min-height: fit-content;
       }
-      .toggle {
-        color: #ffd700;
+
+      .link-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+      }
+
+      .link-card h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+        color: #4e9a06;
+      }
+
+      .link-card p {
+        margin: 0.5rem 0;
+      }
+
+      .link-card .link-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-start;
+      }
+
+      .button {
+        padding: 0.5rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        background-color: #4e9a06;
+        color: #fff;
+        font-weight: bold;
         cursor: pointer;
+        transition: background-color 0.3s;
+        min-width: 100px;
+      }
+
+      .button:hover {
+        background-color: #367602;
+      }
+
+      footer {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .login-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-form {
+        background: #333;
+        padding: 2rem;
+        border-radius: 8px;
+        width: 300px;
+      }
+
+      .login-form input {
+        width: 100%;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        border: 1px solid #4e9a06;
+        border-radius: 4px;
+        background: #1a1a1d;
+        color: #fff;
+      }
+
+      .login-form button {
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      section {
+        width: 100%;
+        max-width: 800px;
+      }
+
+      .link-card p.rated-message {
+        color: #888;
+        font-style: italic;
+        margin: 0.5rem 0;
+      }
+
+      nav {
+        background-color: #333;
+        padding: 0.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-info span {
+        color: #4e9a06;
+        font-weight: bold;
+      }
+
+      .auth-button {
+        background: none;
+        border: 2px solid #4e9a06;
+        color: #4e9a06;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .auth-button:hover {
+        background: #4e9a06;
+        color: white;
+      }
+
+      .form-toggle {
+        text-align: center;
+        margin-top: 1rem;
+        color: #4e9a06;
+        cursor: pointer;
+      }
+
+      .form-toggle:hover {
+        text-decoration: underline;
+      }
+
+      .sort-buttons {
+        margin-bottom: 1rem;
+        display: flex;
+        gap: 1rem;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .page-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .back-button {
+        background: none;
+        border: 2px solid #4e9a06;
+        color: #4e9a06;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .back-button:hover {
+        background: #4e9a06;
+        color: white;
+      }
+
+      /* Add new link form styles */
+      .add-link-button {
+        margin-bottom: 1rem;
+      }
+
+      .add-link-form {
+        background: #333;
+        border: 2px solid #4e9a06;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        display: none;
+      }
+
+      .add-link-form input,
+      .add-link-form textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        border: 1px solid #4e9a06;
+        border-radius: 4px;
+        background: #1a1a1d;
+        color: #fff;
+      }
+
+      .add-link-form textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .form-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 1rem;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Billiards Pals 🎱</h1>
-      <form id="auth-form">
-        <input type="text" name="username" placeholder="Username" required />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <button type="submit" id="submit-btn">Login</button>
-      </form>
-      <p>
-        <span id="toggle-text">New player?</span>
-        <span class="toggle" id="toggle-mode">Register here</span>
-      </p>
+    <header>
+      <h1>🎱 Billiards Pals</h1>
+    </header>
+
+    <nav>
+      <div class="user-info" id="userInfo">
+        <!-- User info will be dynamically inserted -->
+      </div>
+      <div class="nav-buttons">
+        <button class="auth-button" onclick="showFavorites()">
+          My Favorites
+        </button>
+        <button
+          class="auth-button"
+          id="authButton"
+          onclick="handleAuth()"
+        ></button>
+      </div>
+    </nav>
+
+    <div class="login-overlay" id="loginOverlay">
+      <div class="login-form">
+        <h2 id="formTitle">Login</h2>
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <button class="button" id="submitButton" onclick="handleSubmit()">
+          Login
+        </button>
+        <p class="form-toggle" onclick="toggleForm()">
+          <span id="toggleText">Don't have an account? Register</span>
+        </p>
+      </div>
     </div>
 
+    <main>
+      <section>
+        <div class="page-title">
+          <h2 id="pageTitle">All Links</h2>
+          <button
+            id="backButton"
+            class="back-button"
+            onclick="showAllLinks()"
+            style="display: none"
+          >
+            Back to All Links
+          </button>
+        </div>
+
+        <!-- Add new link button and form -->
+        <button class="button add-link-button" onclick="toggleAddLinkForm()">
+          Add New Link
+        </button>
+
+        <div id="addLinkForm" class="add-link-form">
+          <h3>Add New Link</h3>
+          <input type="text" id="linkTitle" placeholder="Title" />
+          <textarea id="linkDescription" placeholder="Description"></textarea>
+          <div class="form-buttons">
+            <button class="button" onclick="toggleAddLinkForm()">Cancel</button>
+            <button class="button" onclick="submitNewLink()">Submit</button>
+          </div>
+        </div>
+
+        <div class="sort-buttons" id="sortButtons">
+          <button class="button" onclick="loadLinks('highest')">
+            Sort by Rating
+          </button>
+          <button class="button" onclick="loadLinks('newest')">
+            Sort by Time
+          </button>
+        </div>
+        <div class="links-container" id="links-container">
+          <!-- Links will be dynamically loaded here -->
+        </div>
+      </section>
+    </main>
+
     <script>
-      let isLogin = true;
-      const form = document.getElementById("auth-form");
-      const toggleMode = document.getElementById("toggle-mode");
-      const submitBtn = document.getElementById("submit-btn");
-      const toggleText = document.getElementById("toggle-text");
+      let isLoginForm = true;
+      let currentView = "all"; // 'all' or 'favorites'
 
-      toggleMode.addEventListener("click", () => {
-        isLogin = !isLogin;
-        submitBtn.textContent = isLogin ? "Login" : "Register";
-        toggleMode.textContent = isLogin ? "Register here" : "Login here";
-        toggleText.textContent = isLogin
-          ? "New player?"
-          : "Already have an account?";
-      });
+      function toggleForm() {
+        isLoginForm = !isLoginForm;
+        const formTitle = document.getElementById("formTitle");
+        const submitButton = document.getElementById("submitButton");
+        const toggleText = document.getElementById("toggleText");
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const endpoint = isLogin ? "/login" : "/register";
-        const data = {
-          username: form.username.value,
-          password: form.password.value,
-        };
+        if (isLoginForm) {
+          formTitle.textContent = "Login";
+          submitButton.textContent = "Login";
+          toggleText.textContent = "Don't have an account? Register";
+        } else {
+          formTitle.textContent = "Register";
+          submitButton.textContent = "Register";
+          toggleText.textContent = "Already have an account? Login";
+        }
+      }
 
+      async function handleSubmit() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        if (isLoginForm) {
+          await login(username, password);
+        } else {
+          await register(username, password);
+        }
+      }
+
+      async function register(username, password) {
         try {
-          const response = await fetch(endpoint, {
+          const response = await fetch("/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
+            body: JSON.stringify({ username, password }),
           });
-          const result = await response.json();
 
-          if (result.error) {
-            alert(result.error);
+          if (response.ok) {
+            alert("Registration successful! Please login.");
+            toggleForm(); // Switch back to login form
+          } else {
+            const data = await response.json();
+            alert(data.error || "Registration failed");
+          }
+        } catch (error) {
+          console.error("Registration failed:", error);
+          alert("Registration failed. Please try again later.");
+        }
+      }
+
+      // get ID from localStorage
+      function getUserId() {
+        const token = localStorage.getItem("token");
+        console.log("Getting user ID from token...");
+
+        if (!token) {
+          console.log("No token found in localStorage");
+          return null;
+        }
+
+        try {
+          const payload = JSON.parse(atob(token.split(".")[1]));
+          console.log("Successfully decoded token payload:", payload);
+          return payload.id;
+        } catch (error) {
+          console.error("Failed to parse token:", error);
+          console.log("Invalid token format:", token);
+          return null;
+        }
+      }
+
+      async function getUserRatings() {
+        const userId = getUserId();
+        if (!userId) return {};
+
+        try {
+          const response = await fetch(`/ratings/${userId}`);
+          const ratings = await response.json();
+          console.log("Raw ratings data:", ratings);
+
+          const ratingMap = ratings.reduce((acc, [linkId, isGood]) => {
+            acc[linkId] = isGood;
+            return acc;
+          }, {});
+
+          console.log("Processed ratings map:", ratingMap);
+          return ratingMap;
+        } catch (error) {
+          console.error("Failed to fetch user ratings:", error);
+          return {};
+        }
+      }
+
+      async function loadLinks(sort = "newest") {
+        if (currentView === "favorites") {
+          showFavorites();
+          return;
+        }
+
+        try {
+          const [links, userRatings] = await Promise.all([
+            fetch(`/links?sort=${sort}`).then((res) => res.json()),
+            getUserRatings(),
+          ]);
+
+          console.log("Received links data:", links);
+          console.log("User ratings:", userRatings);
+
+          const container = document.getElementById("links-container");
+          container.innerHTML = "";
+
+          const currentUserId = getUserId();
+
+          links.forEach((link) => {
+            if (!link[5]) {
+              const card = document.createElement("div");
+              card.className = "link-card";
+
+              const isCreator = currentUserId && link[3] === currentUserId;
+              const linkId = link[0];
+              console.log(`Checking rating for link ${linkId}:`, {
+                hasRating: linkId in userRatings,
+                ratingValue: userRatings[linkId],
+              });
+
+              const hasRated = linkId in userRatings;
+
+              const ratingButtons = hasRated
+                ? `<p class="rated-message">You have already rated this link</p>`
+                : `
+                  <button class="button" onclick="rateLink(${linkId}, true)">👍</button>
+                  <button class="button" onclick="rateLink(${linkId}, false)">👎</button>
+                `;
+
+              card.innerHTML = `
+                <h3>${link[1] || "Untitled"}</h3>
+                <p>${link[2] || "No description available"}</p>
+                <p><strong>Rating:</strong> ${link[8] || 0}</p>
+                <div class="link-actions">
+                  ${ratingButtons}
+                  ${
+                    isCreator
+                      ? `<button class="button" onclick="if(confirm('Warning: Once hidden, this link cannot be restored. Are you sure you want to hide this link?')) hideLink(${linkId})">Hide</button>`
+                      : ""
+                  }
+                </div>
+              `;
+              container.appendChild(card);
+            }
+          });
+        } catch (error) {
+          console.error("Failed to fetch links:", error);
+          const container = document.getElementById("links-container");
+          container.innerHTML =
+            "<p>Failed to load links. Please try again later.</p>";
+        }
+      }
+
+      async function rateLink(linkId, isGood) {
+        try {
+          const userId = getUserId();
+          if (!userId) {
+            showLogin();
             return;
           }
 
-          alert(result.message);
-          if (response.ok && !isLogin) {
-            isLogin = true;
-            submitBtn.textContent = "Login";
-            toggleMode.textContent = "Register here";
-            toggleText.textContent = "New player?";
+          console.log("Sending rating request:", { linkId, isGood });
+          const response = await fetch("/rate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              link_id: linkId,
+              user_id: userId,
+              is_good: isGood,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            alert(data.error || "Failed to submit rating");
+            return;
           }
-        } catch (err) {
-          alert("Error occurred. Please try again.");
+
+          console.log("Rating submitted successfully");
+          alert("Rating submitted!");
+          loadLinks();
+        } catch (error) {
+          console.error("Failed to rate link:", error);
+          alert("Failed to submit rating. Please try again later.");
         }
-      });
+      }
+
+      // Toggle link visibility
+      async function hideLink(linkId) {
+        try {
+          const userId = getUserId();
+          if (!userId) {
+            showLogin();
+            return;
+          }
+
+          console.log("Sending hide request for link:", linkId);
+          await fetch("/hide", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              link_id: linkId,
+              user_id: userId,
+            }),
+          });
+          console.log("Link hidden successfully");
+          alert("Link hidden!");
+          loadLinks();
+        } catch (error) {
+          console.error("Failed to hide link:", error);
+        }
+      }
+
+      // Show login overlay
+      function showLogin() {
+        const loginOverlay = document.getElementById("loginOverlay");
+        loginOverlay.style.display = "flex";
+      }
+      // Load links on page load
+      loadLinks();
+
+      // Get user info
+      async function getUserInfo() {
+        const userId = getUserId();
+        if (!userId) return null;
+
+        try {
+          const response = await fetch(`/user/${userId}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch user info");
+          }
+          return await response.json();
+        } catch (error) {
+          console.error("Failed to get user info:", error);
+          return null;
+        }
+      }
+
+      // Update navbar
+      async function updateNavbar() {
+        const userInfo = document.getElementById("userInfo");
+        const authButton = document.getElementById("authButton");
+
+        const user = await getUserInfo();
+
+        if (user) {
+          userInfo.innerHTML = `
+            <p>Welcome, <span>${user.username}</span></p>
+            <p>Points: <span>${user.billiards_points}</span></p>
+          `;
+          authButton.textContent = "Logout";
+        } else {
+          userInfo.innerHTML = `<p>Welcome, Guest</p>`;
+          authButton.textContent = "Login";
+        }
+      }
+
+      // Handle login/logout
+      function handleAuth() {
+        const userId = getUserId();
+        if (userId) {
+          // Logout
+          localStorage.removeItem("token");
+          updateNavbar();
+          loadLinks();
+        } else {
+          // Show login
+          showLogin();
+        }
+      }
+
+      // Login function
+      async function login(username, password) {
+        console.log("Attempting login with username:", username);
+
+        try {
+          console.log("Sending login request to server...");
+          const response = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          console.log("Server response status:", response.status);
+
+          if (response.ok) {
+            const data = await response.json();
+            console.log("Login successful, received token:", data.token);
+
+            localStorage.setItem("token", data.token);
+            document.getElementById("loginOverlay").style.display = "none";
+
+            // Update navbar and refresh links
+            await updateNavbar();
+            loadLinks();
+          } else {
+            const errorData = await response.text();
+            console.error("Login failed with status:", response.status);
+            console.error("Error details:", errorData);
+            alert("Login failed. Please check your username and password.");
+          }
+        } catch (error) {
+          console.error("Login request failed:", error);
+          alert("Login failed. Please try again later.");
+        }
+      }
+
+      // Update navbar on page load
+      updateNavbar();
+
+      async function showFavorites() {
+        const userId = getUserId();
+        if (!userId) {
+          showLogin();
+          return;
+        }
+
+        try {
+          const response = await fetch(`/favorites/${userId}`);
+          const favorites = await response.json();
+
+          document.getElementById("pageTitle").textContent = "My Favorites";
+          document.getElementById("backButton").style.display = "block";
+          document.getElementById("sortButtons").style.display = "none";
+          document.querySelector(".add-link-button").style.display = "none";
+          document.getElementById("addLinkForm").style.display = "none";
+          currentView = "favorites";
+
+          // Show favorites
+          const container = document.getElementById("links-container");
+          container.innerHTML = "";
+
+          if (favorites.length === 0) {
+            container.innerHTML =
+              "<p>No favorites yet. Try rating some links!</p>";
+            return;
+          }
+
+          favorites.forEach((link) => displayLink(link, container));
+        } catch (error) {
+          console.error("Failed to fetch favorites:", error);
+          alert("Failed to load favorites. Please try again later.");
+        }
+      }
+
+      function showAllLinks() {
+        document.getElementById("pageTitle").textContent = "All Links";
+        document.getElementById("backButton").style.display = "none";
+        document.getElementById("sortButtons").style.display = "flex";
+        document.querySelector(".add-link-button").style.display = "block";
+        currentView = "all";
+        loadLinks();
+      }
+
+      // Show link card
+      function displayLink(link, container) {
+        const card = document.createElement("div");
+        card.className = "link-card";
+
+        const currentUserId = getUserId();
+        const isCreator = currentUserId && link[3] === currentUserId;
+        const linkId = link[0];
+
+        card.innerHTML = `
+          <h3>${link[1] || "Untitled"}</h3>
+          <p>${link[2] || "No description available"}</p>
+          <p><strong>Rating:</strong> ${link[8] || 0}</p>
+          <div class="link-actions">
+            <p class="rated-message">You liked this link</p>
+            ${
+              isCreator
+                ? `<button class="button" onclick="if(confirm('Warning: Once hidden, this link cannot be restored. Are you sure you want to hide this link?')) hideLink(${linkId})">Hide</button>`
+                : ""
+            }
+          </div>
+        `;
+        container.appendChild(card);
+      }
+
+      // Toggle add link form visibility
+      function toggleAddLinkForm() {
+        const form = document.getElementById("addLinkForm");
+        const isVisible = form.style.display === "block";
+        form.style.display = isVisible ? "none" : "block";
+
+        // Clear form if hiding
+        if (isVisible) {
+          document.getElementById("linkTitle").value = "";
+          document.getElementById("linkDescription").value = "";
+        }
+      }
+
+      // Submit new link
+      async function submitNewLink() {
+        const userId = getUserId();
+        if (!userId) {
+          showLogin();
+          return;
+        }
+
+        const title = document.getElementById("linkTitle").value.trim();
+        const description = document
+          .getElementById("linkDescription")
+          .value.trim();
+
+        if (!title || !description) {
+          alert("Please fill in both title and description");
+          return;
+        }
+
+        try {
+          const response = await fetch("/links", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title,
+              description,
+              user_id: userId,
+            }),
+          });
+
+          if (response.ok) {
+            alert("Link added successfully!");
+            toggleAddLinkForm(); // Hide form
+            loadLinks(); // Refresh links list
+          } else {
+            const data = await response.json();
+            alert(data.error || "Failed to add link");
+          }
+        } catch (error) {
+          console.error("Failed to add link:", error);
+          alert("Failed to add link. Please try again later.");
+        }
+      }
     </script>
   </body>
 </html>
